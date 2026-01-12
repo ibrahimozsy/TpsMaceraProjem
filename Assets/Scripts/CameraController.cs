@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -8,12 +9,15 @@ public class CameraController : MonoBehaviour
 {
     [Header("Deðiþkenler")]
     public float MoveSpeed=15f;
-    private float FieldOfView = 50f;
-    public float MinView = 20f;
-    public float MaxView = 50f;
+    private float CurrentWidth = 18f;
+    private float minWiev = 9f;
+    private float maxWiev = 18f;
+    public float ZoomSpeed=15f;
+    
     
     [Header("Compenentler")]
     private CinemachineCamera cinemachinecamera;
+    private CinemachineFollowZoom followZoom;
     public List <Transform> targets = new List<Transform>();
     public enum CameraStates {locked,freelook};
     public CameraStates currentstate = CameraStates.locked;
@@ -22,7 +26,8 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         cinemachinecamera = GetComponent<CinemachineCamera>();
-        cinemachinecamera.Lens.FieldOfView = FieldOfView;
+        followZoom = GetComponent<CinemachineFollowZoom>();
+        followZoom.Width = CurrentWidth;
         cinemachinecamera.Follow = targets[0];
           
     }
@@ -68,9 +73,12 @@ public class CameraController : MonoBehaviour
                 }
                 break;
         }
-        //Kamera Zoomlama
-        FieldOfView -= scroll * 10f;
-        FieldOfView = Mathf.Clamp(FieldOfView, MinView, MaxView);
-        cinemachinecamera.Lens.FieldOfView = FieldOfView;
+        if (scroll != 0)
+        {
+            CurrentWidth -= scroll * ZoomSpeed;
+            CurrentWidth = Mathf.Clamp(CurrentWidth, minWiev, maxWiev);
+            followZoom.Width = CurrentWidth;
+
+        }
     }
 }
