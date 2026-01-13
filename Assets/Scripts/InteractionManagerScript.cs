@@ -2,7 +2,7 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class GameManagerScript : MonoBehaviour
+public class InteractionManagerScript : MonoBehaviour
 {
     public NavMeshAgent agent;
     public Camera cam;

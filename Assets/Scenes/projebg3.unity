@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 79772583}
   - component: {fileID: 79772584}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: InteractionManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -322,7 +322,9 @@ GameObject:
   m_Component:
   - component: {fileID: 430477552}
   - component: {fileID: 430477551}
-  - component: {fileID: 430477553}
+  - component: {fileID: 430477556}
+  - component: {fileID: 430477555}
+  - component: {fileID: 430477554}
   - component: {fileID: 430477550}
   m_Layer: 0
   m_Name: CinemachineCamera
@@ -344,11 +346,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
   MoveSpeed: 15
-  MinView: 20
-  MaxView: 50
+  ZoomSpeed: 15
+  OrbitalVerticalAxsis: 45
   targets:
-  - {fileID: 445598995}
   - {fileID: 1850540756}
+  - {fileID: 445598995}
   currentstate: 0
 --- !u!114 &430477551
 MonoBehaviour:
@@ -401,14 +403,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 430477549}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.27951348, y: -0.010908527, z: 0.0031758817, w: 0.9600746}
-  m_LocalPosition: {x: 0.25, y: 7.5, z: -11}
+  m_LocalRotation: {x: 0.3826835, y: -0.000000012842301, z: 0.000000002848855, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 7.5710683, z: -7.0710673}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &430477553
+--- !u!114 &430477554
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -417,16 +419,104 @@ MonoBehaviour:
   m_GameObject: {fileID: 430477549}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b617507da6d07e749b7efdb34e1173e1, type: 3}
+  m_Script: {fileID: 11500000, guid: 4700f9f03ad19f94baf0367cb7a9c988, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineFollow
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineFollowZoom
+  Width: 17.9
+  Damping: 0.1
+  FovRange: {x: 1, y: 179}
+--- !u!114 &430477555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430477549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f38bda98361e1de48a4ca2bd86ea3c17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineRotationComposer
+  Composition:
+    ScreenPosition: {x: 0, y: 0}
+    DeadZone:
+      Enabled: 0
+      Size: {x: 0.2, y: 0.2}
+    HardLimits:
+      Enabled: 0
+      Size: {x: 0.8, y: 0.8}
+      Offset: {x: 0, y: 0}
+  CenterOnActivate: 1
+  TargetOffset: {x: 0, y: 0, z: 0}
+  Damping: {x: 0.1, y: 0.1}
+  Lookahead:
+    Enabled: 0
+    Time: 0
+    Smoothing: 0
+    IgnoreY: 0
+--- !u!114 &430477556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430477549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b5d7c088409d9a40b7b09aa707777f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineOrbitalFollow
+  TargetOffset: {x: 0, y: 0, z: 0}
   TrackerSettings:
     BindingMode: 4
     PositionDamping: {x: 1, y: 1, z: 1}
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
-  FollowOffset: {x: 0.25, y: 7, z: -11}
+  OrbitStyle: 0
+  Radius: 10
+  Orbits:
+    Top:
+      Radius: 2
+      Height: 5
+    Center:
+      Radius: 4
+      Height: 2.25
+    Bottom:
+      Radius: 2.5
+      Height: 0.1
+    SplineCurvature: 0.5
+  RecenteringTarget: 3
+  HorizontalAxis:
+    Value: 0
+    Center: 0
+    Range: {x: -180, y: 180}
+    Wrap: 1
+    Recentering:
+      Enabled: 0
+      Wait: 0
+      Time: 1.5
+    Restrictions: 0
+  VerticalAxis:
+    Value: 45
+    Center: 45
+    Range: {x: -10, y: 45}
+    Wrap: 0
+    Recentering:
+      Enabled: 0
+      Wait: 1
+      Time: 2
+    Restrictions: 0
+  RadialAxis:
+    Value: 1
+    Center: 1
+    Range: {x: 1, y: 1}
+    Wrap: 0
+    Recentering:
+      Enabled: 1
+      Wait: 1
+      Time: 2
+    Restrictions: 0
 --- !u!1 &445598990
 GameObject:
   m_ObjectHideFlags: 0
@@ -643,7 +733,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 50
+  field of view: 83.65709
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -721,8 +811,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 746098724}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.27951348, y: -0.010908528, z: 0.003175879, w: 0.96007454}
-  m_LocalPosition: {x: 0.25, y: 7.5, z: -11}
+  m_LocalRotation: {x: 0.3826835, y: -0.000000014077602, z: 0.000000005831135, w: 0.9238795}
+  m_LocalPosition: {x: 0, y: 7.5710683, z: -7.0710673}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1167,7 +1257,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1850540756}
   m_Layer: 0
-  m_Name: FreeLookTarget
+  m_Name: PivotNoktasi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1223,6 +1313,8 @@ MonoBehaviour:
   isMiddleMousePressed: 0
   mouseScroll: 0
   MouseX: 0
+  isLeftClick: 0
+  mousePos: {x: 0, y: 0, z: 0}
 --- !u!4 &1915446617
 Transform:
   m_ObjectHideFlags: 0

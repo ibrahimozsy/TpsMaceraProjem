@@ -11,6 +11,8 @@ public class InputManagerScript : MonoBehaviour
     public bool isMiddleMousePressed;
     public float mouseScroll;
     public float MouseX;
+    public bool isLeftClick;
+    public Vector3 mousePos;
 
     private void Awake()
     {
@@ -32,6 +34,8 @@ public class InputManagerScript : MonoBehaviour
         vertical = Input.GetAxis("Vertical");
         mouseScroll = Input.GetAxis("Mouse ScrollWheel");
         MouseX = Input.GetAxis("Mouse X");
+        isLeftClick = Input.GetMouseButtonDown(0);
+        mousePos = Input.mousePosition;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
